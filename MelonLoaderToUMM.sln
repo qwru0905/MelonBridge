@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelonLoader.Stub", "MelonLo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelonBridge", "MelonBridge\MelonBridge.csproj", "{2BAF0665-53D8-4468-BF9C-00FCC79F58C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelonLoaderToUMM.Tests", "MelonLoaderToUMM.Tests\MelonLoaderToUMM.Tests.csproj", "{BD27214D-1DEE-48F0-BE70-52FE8B97C010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,18 @@ Global
 		{2BAF0665-53D8-4468-BF9C-00FCC79F58C2}.Release|x64.Build.0 = Release|Any CPU
 		{2BAF0665-53D8-4468-BF9C-00FCC79F58C2}.Release|x86.ActiveCfg = Release|Any CPU
 		{2BAF0665-53D8-4468-BF9C-00FCC79F58C2}.Release|x86.Build.0 = Release|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Debug|x64.Build.0 = Debug|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Debug|x86.Build.0 = Debug|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Release|x64.ActiveCfg = Release|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Release|x64.Build.0 = Release|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Release|x86.ActiveCfg = Release|Any CPU
+		{BD27214D-1DEE-48F0-BE70-52FE8B97C010}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
