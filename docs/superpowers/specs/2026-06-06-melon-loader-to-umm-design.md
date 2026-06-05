@@ -12,12 +12,13 @@ MelonLoader용으로 작성된 모드 DLL을 재컴파일 없이 UnityModManager
 - 대상: Mono / IL2CPP 양쪽 Unity 백엔드
 - 커버 버전: MelonLoader 0.3.x, 0.4.x, 0.5.x, 0.6.x
 - API 커버리지: 핵심 라이프사이클, 로깅, 설정, 이벤트, 코루틴, 어트리뷰트, IL2CPP no-op 스텁
+- 번들 어셈블리: HarmonyX, Il2CppInterop, UnhollowerRuntimeLib, Semver, Mono.Cecil
 
 ---
 
 ## 아키텍처
 
-### 2개 어셈블리
+### 프로젝트 구성
 
 ```
 MelonLoaderToUMM/
@@ -38,6 +39,22 @@ MelonLoaderToUMM/
         ├── PreferencesBridge.cs  MelonPreferences → TOML .cfg
         └── SceneBridge.cs     SceneManager 이벤트 → ML 씬 콜백
 ```
+
+### 번들 서드파티 어셈블리
+
+MelonLoader 모드들이 참조하지만 UMM이 제공하지 않는 어셈블리들. 빌드 출력에 함께 포함된다.
+
+| 어셈블리 | 버전 범위 | 라이선스 | 용도 |
+|---|---|---|---|
+| `0Harmony.dll` (HarmonyX) | 전 버전 | MIT | 런타임 패칭. UMM 번들 Harmony와 충돌 방지를 위해 별도 로드 |
+| `Il2CppInterop.Runtime.dll` | 0.5.x+ | LGPL-2.1 | IL2CPP 런타임 interop |
+| `Il2CppInterop.Common.dll` | 0.5.x+ | LGPL-2.1 | IL2CPP interop 공통 유틸 |
+| `UnhollowerRuntimeLib.dll` | 0.3.x / 0.4.x | LGPL-2.1 | 구버전 IL2CPP interop |
+| `UnhollowerBaseLib.dll` | 0.3.x / 0.4.x | LGPL-2.1 | 구버전 IL2CPP interop 기반 |
+| `Semver.dll` | 전 버전 | MIT | 버전 비교 |
+| `Mono.Cecil.dll` | 전 버전 | MIT | 어셈블리 메타데이터 조회 |
+
+**HarmonyX 충돌 처리:** UMM도 자체 Harmony를 번들하므로 어셈블리 이름 충돌 가능. `Assembly.LoadFrom()`으로 경로 지정 로드하거나, AppDomain 격리를 통해 분리한다.
 
 ### 동작 흐름
 
@@ -60,7 +77,15 @@ UMM이 MelonBridge.dll 로드
 Game/
 ├── UnityModManager/
 │   └── MelonBridge/
-│       └── MelonBridge.dll
+│       ├── MelonBridge.dll
+│       ├── MelonLoader.dll          ← 스텁
+│       ├── 0Harmony.dll             ← HarmonyX
+│       ├── Il2CppInterop.Runtime.dll
+│       ├── Il2CppInterop.Common.dll
+│       ├── UnhollowerRuntimeLib.dll
+│       ├── UnhollowerBaseLib.dll
+│       ├── Semver.dll
+│       └── Mono.Cecil.dll
 ├── MelonMods/              ← ML 모드 DLL 배치 위치
 │   ├── SomeMod.dll
 │   └── AnotherMod.dll
@@ -246,4 +271,5 @@ public static class MelonCoroutines
 ## 한계 및 제약
 
 - **IL2CPP interop 완전 구현 불가**: `RegisterTypeInIl2Cpp`, `Il2CppInterop` 에코시스템은 게임의 생성 어셈블리에 의존하므로 no-op 스텁만 제공. IL2CPP 전용 ML 모드는 부분적으로만 동작할 수 있다.
-- **Harmony 버전 충돌**: UMM이 번들하는 Harmony 버전과 ML 모드가 기대하는 버전이 다를 수 있음. 런타임에서 감지 시 경고 로그 출력.
+- **HarmonyX vs UMM Harmony 충돌**: UMM이 번들하는 Harmony와 HarmonyX가 같은 어셈블리 이름(`0Harmony`)을 사용. `Assembly.LoadFrom()` 경로 지정으로 분리하되, 두 인스턴스가 동일 메서드를 패칭할 경우 충돌 가능. 이 경우 경고 로그를 출력하고, UMM Harmony를 우선한다.
+- **IL2CPP interop 완전 구현 불가**: Il2CppInterop / Unhollower DLL을 번들하더라도 게임의 생성 어셈블리(예: `Assembly-CSharp-il2cpp.dll`) 없이는 IL2CPP 전용 모드가 실제로 동작하지 않는다. Mono 게임에서는 이 DLL들이 참조만 되고 실행되지 않으므로 문제없다.
