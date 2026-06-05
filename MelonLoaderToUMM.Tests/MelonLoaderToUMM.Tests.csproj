@@ -14,5 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MelonLoader.Stub\MelonLoader.Stub.csproj" />
+    <ProjectReference Include="..\MelonBridge\MelonBridge.csproj" />
   </ItemGroup>
 </Project>

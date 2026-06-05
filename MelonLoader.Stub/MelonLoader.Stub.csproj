@@ -18,5 +18,8 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>MelonLoaderToUMM.Tests</_Parameter1>
     </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>MelonBridge</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 </Project>
