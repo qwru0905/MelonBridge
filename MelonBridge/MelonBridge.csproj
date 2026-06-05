@@ -8,16 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="UnityEngine">
-      <HintPath>$(SolutionDir)lib\UnityEngine.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(SolutionDir)lib\UnityEngine.CoreModule.dll</HintPath>
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="UnityModManager">
-      <HintPath>$(SolutionDir)lib\UnityModManager.dll</HintPath>
+      <HintPath>..\lib\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
