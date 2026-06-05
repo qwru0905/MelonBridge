@@ -24,11 +24,14 @@ using UnityEngine;
 
 namespace MelonLoader
 {
+    using System.Collections;
+    using UnityEngine;
+
     public static class MelonCoroutines
     {
-        internal static UnityEngine.MonoBehaviour Runner;
+        internal static MonoBehaviour Runner;
 
-        public static UnityEngine.Coroutine Start(System.Collections.IEnumerator routine)
+        public static Coroutine Start(IEnumerator routine)
         {
             if (Runner == null)
             {
@@ -38,7 +41,7 @@ namespace MelonLoader
             return Runner.StartCoroutine(routine);
         }
 
-        public static void Stop(UnityEngine.Coroutine coroutine)
+        public static void Stop(Coroutine coroutine)
         {
             if (Runner == null || coroutine == null) return;
             Runner.StopCoroutine(coroutine);
