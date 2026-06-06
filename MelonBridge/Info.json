@@ -1,0 +1,9 @@
+{
+  "Id": "MelonBridge",
+  "Version": "1.0.0",
+  "DisplayName": "MelonLoader Bridge",
+  "Author": "MelonLoaderToUMM",
+  "EntryMethod": "MelonBridge.Main.Load",
+  "HomePage": "",
+  "Repository": ""
+}

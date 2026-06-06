@@ -7,4 +7,9 @@
     <AssemblyVersion>2019.1.0.0</AssemblyVersion>
     <FileVersion>2019.1.0.0</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Only compile the Unity stub, exclude UMM stub -->
+    <Compile Remove="UnityModManager.cs" />
+  </ItemGroup>
 </Project>

@@ -17,7 +17,12 @@ namespace UnityEngine
         public void StopCoroutine(Coroutine coroutine) { }
     }
 
-    public class GameObject : Object { }
+    public class GameObject : Object
+    {
+        public GameObject() { }
+        public GameObject(string name) { }
+        public T AddComponent<T>() where T : MonoBehaviour => null;
+    }
 }
 
 namespace UnityEngine.SceneManagement

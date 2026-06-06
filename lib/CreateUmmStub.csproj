@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>UnityModManager</AssemblyName>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyVersion>0.27.0.0</AssemblyVersion>
+    <FileVersion>0.27.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Only compile the UMM stub, exclude UnityEngine.cs -->
+    <Compile Remove="UnityEngine.cs" />
+  </ItemGroup>
+</Project>
