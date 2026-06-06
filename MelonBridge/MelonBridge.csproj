@@ -25,4 +25,10 @@
   <ItemGroup>
     <ProjectReference Include="..\MelonLoader.Stub\MelonLoader.Stub.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Info.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
