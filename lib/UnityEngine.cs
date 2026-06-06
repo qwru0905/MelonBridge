@@ -6,6 +6,7 @@ namespace UnityEngine
     {
         public override string ToString() => base.ToString();
         public static void DontDestroyOnLoad(Object target) { }
+        public static void Destroy(Object obj) { }
     }
 
     public class Coroutine : Object { }

@@ -12,6 +12,7 @@ namespace MelonBridge
     {
         public static UnityModManager.ModEntry ModEntry { get; private set; }
         private static List<MelonBase> _mods = new List<MelonBase>();
+        private static GameObject _runnerGo;
 
         public static bool Load(UnityModManager.ModEntry modEntry)
         {
@@ -26,8 +27,8 @@ namespace MelonBridge
             var modsFolder = Path.Combine(gameRoot, "MelonMods");
             _mods = ModLoader.LoadAll(modsFolder);
 
-            var runnerGo = new GameObject("MelonCoroutineRunner");
-            runnerGo.AddComponent<MelonCoroutineRunner>();
+            _runnerGo = new GameObject("MelonCoroutineRunner");
+            _runnerGo.AddComponent<MelonCoroutineRunner>();
 
             SceneBridge.Attach(_mods);
 
@@ -63,8 +64,20 @@ namespace MelonBridge
             if (!active)
             {
                 InvokeAll(m => m.OnDeinitializeMelon(), "OnDeinitializeMelon");
-                InvokeAll(m => m.OnApplicationQuit(), "OnApplicationQuit");
                 SceneBridge.Detach();
+                if (_runnerGo != null)
+                {
+                    UnityEngine.Object.Destroy(_runnerGo);
+                    _runnerGo = null;
+                    MelonLoader.MelonCoroutines.Runner = null;
+                }
+            }
+            else
+            {
+                _runnerGo = new GameObject("MelonCoroutineRunner");
+                _runnerGo.AddComponent<MelonCoroutineRunner>();
+                SceneBridge.Attach(_mods);
+                InvokeAll(m => m.OnInitializeMelon(), "OnInitializeMelon");
             }
             return true;
         }
