@@ -26,11 +26,15 @@ namespace UnityEngine
     }
 }
 
+namespace UnityEngine.Events
+{
+    public delegate void UnityAction();
+    public delegate void UnityAction<T0>(T0 arg0);
+    public delegate void UnityAction<T0, T1>(T0 arg0, T1 arg1);
+}
+
 namespace UnityEngine.SceneManagement
 {
-    public delegate void UnityAction<T1, T2>(T1 arg0, T2 arg1);
-    public delegate void UnityAction<T1>(T1 arg0);
-
     public struct Scene
     {
         public int buildIndex { get; }
@@ -45,8 +49,8 @@ namespace UnityEngine.SceneManagement
 
     public static class SceneManager
     {
-        public static event UnityAction<Scene, LoadSceneMode> sceneLoaded;
-        public static event UnityAction<Scene> sceneUnloaded;
+        public static event UnityEngine.Events.UnityAction<Scene, LoadSceneMode> sceneLoaded;
+        public static event UnityEngine.Events.UnityAction<Scene> sceneUnloaded;
 
         static SceneManager()
         {

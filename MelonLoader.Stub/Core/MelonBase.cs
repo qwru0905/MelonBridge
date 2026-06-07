@@ -5,6 +5,10 @@ namespace MelonLoader
         public MelonInfoAttribute Info { get; internal set; }
         public MelonLogger.Instance LoggerInstance { get; internal set; }
 
+        private HarmonyLib.Harmony? _harmonyInstance;
+        public HarmonyLib.Harmony HarmonyInstance =>
+            _harmonyInstance ??= new HarmonyLib.Harmony(Info?.SystemType?.FullName ?? GetType().FullName);
+
         public virtual void OnEarlyInitializeMelon() { }
         public virtual void OnInitializeMelon() { }
         public virtual void OnDeinitializeMelon() { }
