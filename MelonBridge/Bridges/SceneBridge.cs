@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MelonLoader;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 namespace MelonBridge.Bridges

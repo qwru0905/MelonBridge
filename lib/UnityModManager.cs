@@ -7,8 +7,8 @@ namespace UnityModManagerNet
     {
         public class ModEntry
         {
-            public ModLogger Logger { get; }
-            public string Path { get; }
+            public readonly ModLogger Logger;
+            public string Path;
 
             public Action<ModEntry, float> OnUpdate;
             public Action<ModEntry, float> OnFixedUpdate;

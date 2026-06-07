@@ -7,7 +7,7 @@ namespace MelonLoader
     {
         internal static MonoBehaviour Runner;
 
-        public static Coroutine Start(IEnumerator routine)
+        public static object Start(IEnumerator routine)
         {
             if (Runner == null)
             {
@@ -17,10 +17,10 @@ namespace MelonLoader
             return Runner.StartCoroutine(routine);
         }
 
-        public static void Stop(Coroutine coroutine)
+        public static void Stop(object coroutine)
         {
             if (Runner == null || coroutine == null) return;
-            Runner.StopCoroutine(coroutine);
+            Runner.StopCoroutine(coroutine as Coroutine);
         }
     }
 }
