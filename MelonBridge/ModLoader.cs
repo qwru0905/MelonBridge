@@ -18,12 +18,14 @@ namespace MelonBridge
             }
 
             var allMods = new List<(MelonBase mod, int priority)>();
+            var cacheDir = Path.Combine(modsFolder, ".melonbridge-cache");
 
             foreach (var dllPath in Directory.GetFiles(modsFolder, "*.dll"))
             {
                 try
                 {
-                    var assembly = Assembly.LoadFrom(dllPath);
+                    var loadPath = MelonModRewriter.PrepareForLoad(dllPath, cacheDir);
+                    var assembly = Assembly.LoadFrom(loadPath);
                     var infoAttr = assembly.GetCustomAttribute<MelonInfoAttribute>();
                     if (infoAttr == null) continue;
 

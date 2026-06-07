@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyName>MelonBridge</AssemblyName>
     <RootNamespace>MelonBridge</RootNamespace>
     <LangVersion>9.0</LangVersion>
@@ -15,6 +15,22 @@
     <Reference Include="UnityModManager">
       <HintPath>..\lib\UnityModManager.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\lib\Mono.Cecil.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="0Harmony.Melon">
+      <HintPath>..\lib\melon-private\0Harmony.Melon.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="MonoMod.Utils.Melon">
+      <HintPath>..\lib\melon-private\MonoMod.Utils.Melon.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour.Melon">
+      <HintPath>..\lib\melon-private\MonoMod.RuntimeDetour.Melon.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 
@@ -31,4 +47,28 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="CopyToGame" AfterTargets="Build">
+    <PropertyGroup>
+      <GameModDir>D:\98_HIDDEN\01_Game\00_Steam\steamapps\common\A Dance of Fire and Ice\Mods\MelonBridge</GameModDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(GameModDir)" />
+    <ItemGroup>
+      <GameFiles Include="$(OutputPath)MelonBridge.dll" />
+      <GameFiles Include="$(OutputPath)MelonLoader.dll" />
+      <GameFiles Include="$(OutputPath)Info.json" />
+      <GameFiles Include="$(OutputPath)Tomlet.dll" />
+      <!-- Private "shaded" copies of HarmonyX 2.10.2 + MonoMod 22.3.23.4 (renamed to
+           "*.Melon" identities), used only by MelonBridge/MelonLoader.Stub/Melon mods.
+           UMM's own bundled Harmony is left untouched so JALib and other UMM-native
+           mods keep working with the version they were compiled against. UMM's bundle
+           doesn't ship Mono.Cecil (it uses dnlib internally), so MelonBridge carries
+           its own private copy too. -->
+      <GameFiles Include="$(OutputPath)0Harmony.Melon.dll" />
+      <GameFiles Include="$(OutputPath)MonoMod.Utils.Melon.dll" />
+      <GameFiles Include="$(OutputPath)MonoMod.RuntimeDetour.Melon.dll" />
+      <GameFiles Include="$(OutputPath)Mono.Cecil.dll" />
+    </ItemGroup>
+    <Copy SourceFiles="@(GameFiles)" DestinationFolder="$(GameModDir)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

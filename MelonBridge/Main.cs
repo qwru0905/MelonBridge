@@ -18,6 +18,8 @@ namespace MelonBridge
         {
             ModEntry = modEntry;
 
+            MelonAssemblyRedirect.Install();
+
             LoggerBridge.Attach(new UmmLoggerAdapter(modEntry.Logger));
 
             var gameRoot = Path.GetFullPath(Path.Combine(modEntry.Path, "..", ".."));
@@ -29,6 +31,8 @@ namespace MelonBridge
 
             _runnerGo = new GameObject("MelonCoroutineRunner");
             _runnerGo.AddComponent<MelonCoroutineRunner>();
+
+            MonoModNullVersionFix.Apply(new HarmonyLib.Harmony("MelonBridge.MonoModFix"));
 
             SceneBridge.Attach(_mods);
 

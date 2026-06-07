@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <AssemblyName>MelonLoader</AssemblyName>
     <RootNamespace>MelonLoader</RootNamespace>
     <LangVersion>9.0</LangVersion>
@@ -11,6 +11,10 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\lib\UnityEngine.CoreModule.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony.Melon">
+      <HintPath>..\lib\melon-private\0Harmony.Melon.dll</HintPath>
+      <Private>true</Private>
     </Reference>
   </ItemGroup>
 
