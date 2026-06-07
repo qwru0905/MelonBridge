@@ -48,10 +48,11 @@
     </None>
   </ItemGroup>
 
-  <Target Name="CopyToGame" AfterTargets="Build">
-    <PropertyGroup>
-      <GameModDir>D:\98_HIDDEN\01_Game\00_Steam\steamapps\common\A Dance of Fire and Ice\Mods\MelonBridge</GameModDir>
-    </PropertyGroup>
+  <!-- Per-machine overrides (e.g. GameModDir) live in a gitignored local.user.props.
+       See local.user.props.example for the template. -->
+  <Import Project="local.user.props" Condition="Exists('local.user.props')" />
+
+  <Target Name="CopyToGame" AfterTargets="Build" Condition="'$(GameModDir)' != ''">
     <MakeDir Directories="$(GameModDir)" />
     <ItemGroup>
       <GameFiles Include="$(OutputPath)MelonBridge.dll" />

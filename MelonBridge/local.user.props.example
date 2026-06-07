@@ -1,0 +1,12 @@
+<Project>
+  <!--
+    Copy this file to "local.user.props" (gitignored) and set GameModDir to your
+    local game's mod folder. When set, `dotnet build` automatically copies the
+    built MelonBridge bundle there after each build (CopyToGame target).
+
+    Leave GameModDir unset / delete local.user.props to skip this step entirely.
+  -->
+  <PropertyGroup>
+    <GameModDir>C:\Path\To\Game\Mods\MelonBridge</GameModDir>
+  </PropertyGroup>
+</Project>

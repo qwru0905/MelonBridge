@@ -7,3 +7,16 @@ lib/build/
 lib/obj/
 lib/*.dll
 lib/*.pdb
+
+# IDE / local tooling
+.idea/
+*.DotSettings.user
+
+# scratch/investigation projects (not part of the shipped product)
+harmonyx_check/
+
+# developer-local build overrides (per-machine paths, e.g. CopyToGame target)
+*.user.props
+
+# packaged release bundles
+/dist/
