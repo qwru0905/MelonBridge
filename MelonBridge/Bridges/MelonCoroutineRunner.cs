@@ -9,5 +9,10 @@ namespace MelonBridge.Bridges
             Object.DontDestroyOnLoad(gameObject);
             MelonLoader.MelonCoroutines.Runner = this;
         }
+
+        private void OnGUI()
+        {
+            Main.OnUnityGUI();
+        }
     }
 }

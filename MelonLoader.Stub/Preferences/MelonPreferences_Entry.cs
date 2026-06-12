@@ -6,6 +6,7 @@ namespace MelonLoader
     {
         public string Identifier { get; internal set; }
         public string DisplayName { get; internal set; }
+        public string Description { get; internal set; }
         public T DefaultValue { get; internal set; }
 
         private T _value;

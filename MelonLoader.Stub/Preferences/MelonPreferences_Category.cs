@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MelonLoader.Preferences;
 
 namespace MelonLoader
 {
@@ -21,6 +22,26 @@ namespace MelonLoader
             Entries.Add(entry);
             MelonPreferences.Backend?.RegisterEntry(Identifier, entry);
             return entry;
+        }
+
+        public MelonPreferences_Entry<T> CreateEntry<T>(
+            string identifier,
+            T defaultValue,
+            string displayName,
+            string description,
+            bool isHidden,
+            bool dontSaveDefault,
+            ValueValidator validator,
+            string oldIdentifier)
+        {
+            var entry = CreateEntry(identifier, defaultValue, displayName);
+            entry.Description = description;
+            return entry;
+        }
+
+        public void SaveToFile(bool printmsg = false)
+        {
+            MelonPreferences.SaveAll();
         }
     }
 }

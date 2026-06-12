@@ -79,6 +79,11 @@ namespace MelonBridge.Bridges
                     if (doc.TryGetValue(catId, out var catVal) && catVal is TomlTable catTable)
                         catTable.PutValue(entryId, getter(), true);
                 }
+
+                var dir = Path.GetDirectoryName(_path);
+                if (!string.IsNullOrEmpty(dir))
+                    Directory.CreateDirectory(dir);
+
                 File.WriteAllText(_path, doc.SerializedValue);
             }
         }

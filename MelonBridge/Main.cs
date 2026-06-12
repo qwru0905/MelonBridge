@@ -39,7 +39,6 @@ namespace MelonBridge
             modEntry.OnUpdate = OnUpdate;
             modEntry.OnFixedUpdate = OnFixedUpdate;
             modEntry.OnLateUpdate = OnLateUpdate;
-            modEntry.OnGUI = OnGUI;
             modEntry.OnToggle = OnToggle;
 
             InvokeAll(m => m.OnEarlyInitializeMelon(), "OnEarlyInitializeMelon");
@@ -60,7 +59,7 @@ namespace MelonBridge
         private static void OnLateUpdate(UnityModManager.ModEntry entry, float dt)
             => InvokeAll(m => m.OnLateUpdate(), "OnLateUpdate");
 
-        private static void OnGUI(UnityModManager.ModEntry entry)
+        internal static void OnUnityGUI()
             => InvokeAll(m => m.OnGUI(), "OnGUI");
 
         private static bool OnToggle(UnityModManager.ModEntry entry, bool active)

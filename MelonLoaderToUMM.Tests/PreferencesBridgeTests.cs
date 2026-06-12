@@ -54,6 +54,21 @@ namespace MelonLoaderToUMM.Tests
         }
 
         [Test]
+        public void CategorySaveToFile_SavesRegisteredEntries()
+        {
+            PreferencesBridge.Attach(_tempPath);
+            var category = MelonPreferences.CreateCategory("SaveCat_" + System.Guid.NewGuid().ToString("N"));
+            var entry = category.CreateEntry("showWindow", false);
+            entry.Value = true;
+
+            category.SaveToFile(false);
+            entry.Value = false;
+            MelonPreferences.LoadAll();
+
+            Assert.IsTrue(entry.Value);
+        }
+
+        [Test]
         public void Load_MissingFile_UsesDefaultValue()
         {
             File.Delete(_tempPath);
@@ -64,6 +79,30 @@ namespace MelonLoaderToUMM.Tests
             MelonPreferences.LoadAll();
 
             Assert.AreEqual("fallback", entry.Value);
+        }
+
+        [Test]
+        public void Save_NonExistentDirectory_CreatesDirectory()
+        {
+            var nonExistentDir = Path.Combine(Path.GetTempPath(), System.Guid.NewGuid().ToString("N"));
+            var filePath = Path.Combine(nonExistentDir, "prefs.cfg");
+            try
+            {
+                PreferencesBridge.Attach(filePath);
+                var category = MelonPreferences.CreateCategory("DirTest");
+                var entry = category.CreateEntry("key", "val");
+
+                MelonPreferences.SaveAll();
+
+                Assert.IsTrue(File.Exists(filePath));
+                Assert.IsTrue(Directory.Exists(nonExistentDir));
+            }
+            finally
+            {
+                PreferencesBridge.Detach();
+                if (Directory.Exists(nonExistentDir))
+                    Directory.Delete(nonExistentDir, true);
+            }
         }
     }
 }

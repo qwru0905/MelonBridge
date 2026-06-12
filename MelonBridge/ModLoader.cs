@@ -32,12 +32,26 @@ namespace MelonBridge
                     if (ShouldSkipForPlatform(assembly)) continue;
 
                     var types = FindMelonTypes(assembly);
+                    MelonBase firstMod = null;
                     foreach (var type in types)
                     {
                         var mod = CreateInstance(type);
                         InjectInfo(mod, infoAttr);
                         var priority = assembly.GetCustomAttribute<MelonPriorityAttribute>()?.Priority ?? 0;
                         allMods.Add((mod, priority));
+                        firstMod ??= mod;
+                    }
+
+                    if (firstMod != null)
+                    {
+                        try
+                        {
+                            firstMod.HarmonyInstance.PatchAll(assembly);
+                        }
+                        catch (Exception e)
+                        {
+                            MelonLogger.Error($"Harmony 패치 적용 실패 [{Path.GetFileName(dllPath)}]: {e}");
+                        }
                     }
                 }
                 catch (Exception e)
