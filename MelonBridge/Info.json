@@ -1,6 +1,6 @@
 {
   "Id": "MelonBridge",
-  "Version": "0.1.0",
+  "Version": "0.2.0",
   "DisplayName": "MelonLoader Bridge",
   "Author": "qwru0905",
   "EntryMethod": "MelonBridge.Main.Load",
